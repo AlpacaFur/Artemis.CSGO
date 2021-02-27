@@ -1,0 +1,8 @@
+{
+  "Guid": "7eea0427-337e-4587-9cb8-431b68fe7981",
+  "Name": "CS:GO",
+  "Description": "CS:GO Game State Integration",
+  "Version": "1.0.0.0",
+  "Icon": "Pistol",
+  "Main": "Artemis.CSGO.dll"
+}
