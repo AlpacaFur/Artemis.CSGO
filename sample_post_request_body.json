@@ -1,0 +1,109 @@
+{
+        "map": {
+                "mode": "deathmatch",
+                "name": "de_dust2",
+                "phase": "live",
+                "round": 0,
+                "team_ct": {
+                        "score": 0,
+                        "consecutive_round_losses": 0,
+                        "timeouts_remaining": 1,
+                        "matches_won_this_series": 0
+                },
+                "team_t": {
+                        "score": 0,
+                        "consecutive_round_losses": 0,
+                        "timeouts_remaining": 1,
+                        "matches_won_this_series": 0
+                },
+                "num_matches_to_win_series": 0,
+                "current_spectators": 0,
+                "souvenirs_total": 0
+        },
+        "player": {
+                "steamid": "76561198217626672",
+                "name": "AlpacaFur",
+                "observer_slot": 1,
+                "team": "T",
+                "activity": "playing",
+                "match_stats": {
+                        "kills": 4,
+                        "assists": 0,
+                        "deaths": 0,
+                        "mvps": 0,
+                        "score": 50
+                },
+                "state": {
+                        "health": 100,
+                        "armor": 100,
+                        "helmet": true,
+                        "flashed": 0,
+                        "smoked": 0,
+                        "burning": 0,
+                        "money": 0,
+                        "round_kills": 4,
+                        "round_killhs": 4,
+                        "equip_value": 4200
+                },
+                "weapons": {
+                        "weapon_0": {
+                                "name": "weapon_knife_t",
+                                "paintkit": "default",
+                                "type": "Knife",
+                                "state": "holstered"
+                        },
+                        "weapon_1": {
+                                "name": "weapon_glock",
+                                "paintkit": "default",
+                                "type": "Pistol",
+                                "ammo_clip": 18,
+                                "ammo_clip_max": 20,
+                                "ammo_reserve": 120,
+                                "state": "holstered"
+                        },
+                        "weapon_2": {
+                                "name": "weapon_sg556",
+                                "paintkit": "default",
+                                "type": "Rifle",
+                                "ammo_clip": 14,
+                                "ammo_clip_max": 30,
+                                "ammo_reserve": 90,
+                                "state": "active"
+                        },
+                        "weapon_3": {
+                                "name": "weapon_healthshot",
+                                "paintkit": "default",
+                                "type": "StackableItem",
+                                "ammo_reserve": 1,
+                                "state": "holstered"
+                        }
+                }
+        },
+        "provider": {
+                "name": "Counter-Strike: Global Offensive",
+                "appid": 730,
+                "version": 13782,
+                "steamid": "76561198217626672",
+                "timestamp": 1614447029
+        },
+        "round": {
+                "phase": "live"
+        },
+        "previously": {
+                "player": {
+                        "match_stats": {
+                                "kills": 3,
+                                "score": 39
+                        },
+                        "state": {
+                                "round_kills": 3,
+                                "round_killhs": 3
+                        },
+                        "weapons": {
+                                "weapon_2": {
+                                        "ammo_clip": 15
+                                }
+                        }
+                }
+        }
+}
