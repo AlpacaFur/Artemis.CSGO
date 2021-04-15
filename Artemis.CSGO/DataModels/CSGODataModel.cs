@@ -5,8 +5,6 @@ using System.Collections.Generic;
 
 namespace Artemis.CSGO.DataModels
 {
-
-
     public enum TeamEnum
     {
         None,
@@ -16,6 +14,7 @@ namespace Artemis.CSGO.DataModels
     }
     public enum Activity
     {
+        None,
         Menu,
         Playing,
         TextInput
@@ -24,13 +23,10 @@ namespace Artemis.CSGO.DataModels
     public class CSGODataModel : DataModel
     {
 
-        // You can even have classes in your datamodel, just don't forget to instantiate them ;)
-        // [DataModelProperty(Name = "A class within the datamodel")]
         public Map map { get; set; } = new Map();
         public Player player { get; set; } = new Player();
         public Provider provider { get; set; } = new Provider();
         public Round round { get; set; } = new Round();
-
 
     }
 
@@ -47,6 +43,16 @@ namespace Artemis.CSGO.DataModels
             public int matches_won_this_series { get; set; }
         }
 
+        public enum WinState
+        {
+            None,
+            CT_Win_Elimination,
+            CT_Win_Defuse,
+            CT_Win_Time,
+            T_Win_Elimination,
+            T_Win_Bomb
+        }
+
         public string mode { get; set; }
         public string name { get; set; }
         public string phase { get; set; }
@@ -61,6 +67,7 @@ namespace Artemis.CSGO.DataModels
         public int current_spectators { get; set; }
         [DataModelProperty(Name = "Souvenirs Total")]
         public int souvenirs_total { get; set; }
+        public Dictionary<int, WinState> round_wins { get; set; } = new Dictionary<int, WinState>();
 
     }
 
@@ -79,46 +86,14 @@ namespace Artemis.CSGO.DataModels
         {
             public int health { get; set; }
             public int armor { get; set; }
+            [DataModelProperty(Name = "Has Helmet")]
             public bool helmet { get; set; }
-            private double percent_flashed { get; set; }
             [DataModelProperty(Name = "Percent Flashed")]
-            public double flashed
-            {
-                get
-                {
-                    return percent_flashed;
-                }
-                set
-                {
-                    percent_flashed = Math.Floor(value / 255 * 100);
-                }
-            }
-            private double percent_smoked { get; set; }
+            public double flashed { get; set; }
             [DataModelProperty(Name = "Percent Smoked")]
-            public double smoked
-            {
-                get
-                {
-                    return percent_smoked;
-                }
-                set
-                {
-                    percent_smoked = Math.Floor(value / 255 * 100);
-                }
-            }
-            private double percent_burning { get; set; }
+            public double smoked { get; set; }
             [DataModelProperty(Name = "Percent Burning")]
-            public double burning
-            {
-                get
-                {
-                    return percent_burning;
-                }
-                set
-                {
-                    percent_burning = Math.Floor(value / 255 * 100);
-                }
-            }
+            public double burning { get; set; }
             public int money { get; set; }
             [DataModelProperty(Name = "Round Kills")]
             public int round_kills { get; set; }
@@ -128,45 +103,28 @@ namespace Artemis.CSGO.DataModels
             public int equip_value { get; set; }
         }
 
-        //public class Weapons
-        //{
-        //    [DataModelProperty(Name = "Weapon 0")]
-        //    public Weapon weapon_0 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 1")]
-        //    public Weapon weapon_1 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 2")]
-        //    public Weapon weapon_2 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 3")]
-        //    public Weapon weapon_3 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 4")]
-        //    public Weapon weapon_4 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 5")]
-        //    public Weapon weapon_5 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 6")]
-        //    public Weapon weapon_6 { get; set; }
-        //    [DataModelProperty(Name = "Weapon 7")]
-        //    public Weapon weapon_7 { get; set; }
-        //}
-
         public class Weapon
         {
             public enum State
             {
-                none,
-                holstered,
-                active,
+                None,
+                Holstered,
+                Active,
+                Reloading,
             }
 
             public string name { get; set; }
             public string paintkit { get; set; }
             public string type { get; set; }
+            [DataModelProperty(Name = "Current Ammo")]
             public int ammo_clip { get; set; }
+            [DataModelProperty(Name = "Clip Size")]
             public int ammo_clip_max { get; set; }
+            [DataModelProperty(Name = "Ammo Reserve")]
             public int ammo_reserve { get; set; }
             public State state { get; set; }
         }
-        [JsonProperty("weapons")]
-        public Dictionary<object, Weapon> weapons { get; set; }
+        public Dictionary<string, Weapon> weapons { get; set; } = new Dictionary<string, Weapon>();
 
         [DataModelProperty(Name = "steamid")]
         public string steamid { get; set; }
@@ -179,18 +137,10 @@ namespace Artemis.CSGO.DataModels
         [DataModelProperty(Name = "Match Stats")]
         public Stats match_stats { get; set; } = new Stats();
         public State state { get; set; } = new State();
-
-        //public bool has_c4
-        //{
-        //    get
-        //    {
-        //        foreach(KeyValuePair<string, Weapon> entry in weapons)
-        //        {
-        //            if (entry.Value.name == "weapon_c4") return true;
-        //        }
-        //        return false;
-        //    }
-        //}
+        [DataModelProperty(Name = "Has C4")]
+        public bool has_c4 { get; set; }
+        [DataModelProperty(Name = "Current Weapon")]
+        public Weapon current_weapon { get; set; }
     }
 
     public class Provider
@@ -203,6 +153,24 @@ namespace Artemis.CSGO.DataModels
     }
     public class Round
     {
-        public string phase { get; set; }
+        public enum BombState
+        {
+            None,
+            Planted,
+            Exploded,
+            Defused
+        }
+        public enum PhaseState
+        {
+            None,
+            WarmUp,
+            FreezeTime,
+            Live,
+            Over
+        }
+        public PhaseState phase { get; set; }
+        [DataModelProperty(Name = "Winning Team")]
+        public TeamEnum win_team { get; set; }
+        public BombState bomb { get; set; }
     }
 }
