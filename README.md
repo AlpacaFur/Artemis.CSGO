@@ -1,8 +1,8 @@
-# CS:GO GSI for Artemis
+# [Deprecated] CS:GO GSI for Artemis
+
+This plugin doesn't work with the newest version of Artemis, please check out the new version in the official [Artemis.Plugins.Games](https://github.com/Artemis-RGB/Artemis.Plugins.Games) repo instead!
 
 [![banner](https://user-images.githubusercontent.com/2746893/114957721-a3947880-9e2f-11eb-8e51-2fdccf646c0c.png)](https://github.com/AlpacaFur/Artemis.CSGO/releases)
-
-
 
 This module is in beta: please report any bugs that you see! 
 
